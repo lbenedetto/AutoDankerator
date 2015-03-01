@@ -57,14 +57,13 @@ def usernameMentions():
             # Things that should happen if AutoDankerator is also in the comment
             if checkForWord("AutoDankerator", comment):
                 if checkForWord("what is", comment):
-
                     checkForWordAndReply('love', comment,
                                          "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
-                dankSearch = comment.split("what is")
-                dankSearch = clean(dankSearch[1])
-                dankURL = "http://knowyourmeme.com/memes/" + dankSearch
-                if URLisValid(dankURL):
-                    comment.reply(dankURL)
+                    dankSearch = comment.split("what is")
+                    dankSearch = clean(dankSearch[1])
+                    dankURL = "http://knowyourmeme.com/memes/" + dankSearch
+                    if URLisValid(dankURL):
+                        comment.reply(dankURL, "\n", "I am a bot, this action was performed automatically.")
 
 
             # Things that should happen all the time always
@@ -80,7 +79,7 @@ def clean(s):
 
 def URLisValid(url):
     try:
-        ayy = urllib.request.urlopen(url)
+        urllib.request.urlopen(url)
         return True
     except:
         return False
