@@ -30,6 +30,7 @@ def setFlairs():
             print("Removing flair from post #", rank)
             submission.set_flair(None)
 
+
 def getAboutText(url):
     page = urllib.request.urlopen(url).read()
     soup = BeautifulSoup(page)
@@ -38,6 +39,7 @@ def getAboutText(url):
     #print(soup('div', id='about'))
     # for string in data:
     #     print(string)
+
 
 def alreadyDone(comment):
     done = False
@@ -69,10 +71,14 @@ def usernameMentions():
                     checkForWordAndReply('love', comment,
                                          "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
                     dankSearch = comment.split("what is")
+                    thing = dankSearch[1]
                     dankSearch = clean(dankSearch[1])
                     dankURL = "http://knowyourmeme.com/memes/" + dankSearch
+                    info = getAboutText(dankURL)
                     if URLisValid(dankURL):
-                        comment.reply(dankURL, "\n", "I am a bot, this action was performed automatically.")
+                        reply = str(info, "  ", "[thing](dankURL)", "  ",
+                                            "I am a bot, this action was performed automatically.")
+                        comment.reply(reply)
 
 
             # Things that should happen all the time always
@@ -104,6 +110,7 @@ def checkForWord(word, comment):
     if word in comment.body and not alreadyDone(comment):
         return True
     return False
+
 
 def checkSettings(filename):
     settings = []
