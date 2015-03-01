@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 
 
 def prawLogin():
-    r = praw.Reddit('''Dank Bot v 1.0
+    r = praw.Reddit('''Dank Bot v 1.46
 By: /u/Styyxx and /u/larperdoodle
 Github: https://github.com/larperdoodle/AutoDankerator''')
     settings = checkSettings('settings.txt')
