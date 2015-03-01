@@ -35,10 +35,17 @@ def getAboutText(url):
     page = urllib.request.urlopen(url).read()
     soup = BeautifulSoup(page)
     data = soup.find('h2', {'id': 'about'}).next_element.next_element.next_element
-    print(data)
-    #print(soup('div', id='about'))
-    # for string in data:
-    #     print(string)
+    return data
+
+
+def convertFormatting(t):
+    t = t.replace("<p>", "")
+    t = t.replace("</p>", "")
+    t = t.replace("<strong>", "**")
+    t = t.replace("</strong>", "**")
+    t = re.sub(r'<a href=".+">', '', t)
+    t = t.replace("</a>", "")
+    return t
 
 
 def alreadyDone(comment):
@@ -74,13 +81,11 @@ def usernameMentions():
                     thing = dankSearch[1]
                     dankSearch = clean(dankSearch[1])
                     dankURL = "http://knowyourmeme.com/memes/" + dankSearch
-                    info = getAboutText(dankURL)
+                    info = convertFormatting(getAboutText(dankURL))
                     if URLisValid(dankURL):
-                        reply = str(info, "  ", "[thing](dankURL)", "  ",
-                                            "I am a bot, this action was performed automatically.")
+                        reply = str(info, "  ", "["+thing+"](dankURL)", "  ",
+                                    "I am a bot, this action was performed automatically.")
                         comment.reply(reply)
-
-
             # Things that should happen all the time always
             checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
 
