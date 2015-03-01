@@ -14,6 +14,7 @@ Github: https://github.com/larperdoodle/AutoDankerator''')
     r.login('AutoDankerator', settings[2])
     return r
 
+
 # This function parses through the provided HTML and returns a clean string of the About data.
 def getAboutText(url):
     if URLisValid(url):
@@ -24,7 +25,8 @@ def getAboutText(url):
     else:
         return "titty sprinkles" #TITTY SPRINKLES!
 
-#This changes <strong> to reddits format for bold.
+
+# This changes <strong> to reddits format for bold.
 def convertFormatting(t):
     str(t)
     t = re.sub('<p>', '', t)
@@ -37,7 +39,8 @@ def convertFormatting(t):
     t = re.sub("</a>", "", t)
     return t
 
-#Checks if the bot has already replied to a comment.
+
+# Checks if the bot has already replied to a comment.
 def alreadyDone(comment):
     done = False
     numofR = 0
@@ -57,7 +60,8 @@ def alreadyDone(comment):
     else:
         return False
 
-#Creates a reply to, well, reply with.
+
+# Creates a reply to, well, reply with.
 def knowYourMeme(meme):
     dankSearch = clean(meme)
     dankURL = "http://knowyourmeme.com/memes/" + dankSearch
@@ -77,7 +81,8 @@ def knowYourMeme(meme):
         reply += '" is.'
     return reply
 
-#Checks the submissions for comments that ask for me
+
+# Checks the submissions for comments that ask for me
 def usernameMentions():
     for submission in subreddit.get_new(limit=25):
         flat_comments = praw.helpers.flatten_tree(submission.comments)
@@ -94,14 +99,16 @@ def usernameMentions():
                     comment.reply(reply)
             # Things that should happen all the time always
 
-#Removes punctuation from text.
+
+# Removes punctuation from text.
 def clean(s):
     s = s.strip()
     s = re.sub('[%s]' % re.escape(string.punctuation), '', s)
     s = s.replace(" ", "-")
     return s
 
-#Is a URL valid, and it doesn't 404, right?
+
+# Is a URL valid, and it doesn't 404, right?
 def URLisValid(url):
     try:
         urllib.request.urlopen(url)
@@ -141,7 +148,8 @@ def checkSettings(filename):
         pass
     return settings
 
-#Main function.
+
+# Main function.
 def main():
     r = prawLogin()
     settings = checkSettings('settings.txt')
