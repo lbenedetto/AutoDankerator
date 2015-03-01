@@ -1,5 +1,6 @@
 import praw
 import os
+import urllib
 
 
 def prawLogin():
@@ -56,9 +57,17 @@ def usernameMentions():
                 if checkForWord("what is", comment):
                     checkForWordAndReply('love', comment,
                                          "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
-                    
+
             # Things that should happen all the time always
             checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
+
+
+def URLisValid(url):
+    ayy = urllib.urlopen(url)
+    lmao = ayy.getcode()
+    if lmao is 404:
+        return False
+    return True
 
 
 def checkForWordAndReply(word, comment, reply):
