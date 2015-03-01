@@ -1,4 +1,3 @@
-# TODO: Move everything regarding flairs to here.
 import os
 import praw
 
@@ -34,13 +33,13 @@ def checkSettings(filename):
 
 def setFlairs():
     rank = 0
-
     for submission in subreddit.get_top_from_all(limit=50):
         rank += 1
         if rank <= 25:
             submission.set_flair("#" + str(rank))
         else:
             submission.set_flair(None)
+
 
 def main():
     r = prawLogin()
