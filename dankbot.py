@@ -5,7 +5,7 @@ import os
 global subreddit
 subreddit = None
 
-#Login stuff.
+#Login stuff
 def prawLogin():
     print("Logging in")
     r = praw.Reddit('Dank Bot 1.0 by /u/Styyxx')
