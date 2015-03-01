@@ -34,7 +34,7 @@ def getAboutText(url):
         data = soup.find('h2', {'id': 'about'}).next_element.next_element.next_element
         return str(data)
     else:
-        return "titty sprinkles"
+        return "titty sprinkles" #TITTY SPRINKLES!
 
 #This changes <strong> to reddits format for bold.
 def convertFormatting(t):
@@ -43,6 +43,8 @@ def convertFormatting(t):
     t = re.sub('</p>', '', t)
     t = re.sub('<strong>', '**', t)
     t = re.sub('</strong>', '**', t)
+    t = re.sub('<i>', '*', t)
+    t = re.sub('</i>', '*', t)
     t = re.sub(r'<a href=".+">', '', t)
     t = re.sub("</a>", "", t)
     return t
@@ -160,8 +162,7 @@ def main():
     subreddit = r.get_subreddit("dankmemes")
     # if settings[0] == 'yes':
     #     setFlairs()
-    if settings[1] == 'yes':
-        usernameMentions()
+    usernameMentions()
 
 
 main()
