@@ -7,27 +7,22 @@ from bs4 import BeautifulSoup
 
 
 def prawLogin():
-    print("Logging in")
     r = praw.Reddit(''''Dank Bot v 1.0
 By: /u/Styyxx and /u/larperdoodle
 Github: https://github.com/larperdoodle/AutoDankerator''')
     settings = checkSettings('settings.txt')
-    print("Running with settings:", settings)
     r.login('AutoDankerator', settings[2])
     return r
 
 
 def setFlairs():
-    print("Getting comments")
     rank = 0
 
     for submission in subreddit.get_top_from_all(limit=50):
         rank += 1
         if rank <= 25:
-            print("Adding flair for post #", rank)
             submission.set_flair("#" + str(rank))
         else:
-            print("Removing flair from post #", rank)
             submission.set_flair(None)
 
 
@@ -95,14 +90,12 @@ def knowYourMeme(meme):
 def usernameMentions():
     for submission in subreddit.get_new(limit=25):
         flat_comments = praw.helpers.flatten_tree(submission.comments)
-        print("Iterating through comments in", submission)
         for comment in flat_comments:
             # Things that should happen if AutoDankerator is also in the comment
             if checkForWord("AutoDankerator", comment):
                 if checkForWord("what is", comment):
                     checkForWordAndReply('love', comment,
                                          "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
-                    print(comment)
                     dankSearch = comment.body.split("what is")
                     meme = dankSearch[1]
                     reply = knowYourMeme(meme)
@@ -127,7 +120,6 @@ def URLisValid(url):
 
 def checkForWordAndReply(word, comment, reply):
     if checkForWord(word, comment):
-        print("Replying to comment", comment)
         comment.reply(reply)
 
 
@@ -141,7 +133,6 @@ def checkSettings(filename):
     settings = []
     try:
         if not os.path.exists(filename):
-            print("Cannot read from the file if it does not exist")
             raise IOError
         with open(filename) as file:
             for line in file:
@@ -150,12 +141,9 @@ def checkSettings(filename):
         try:
             file.close()
         except:
-            print("Could not close file")
-    except IOError:
-        print("I/O error")
+            pass
     except:
-        print("Unexpected error")
-    return settings
+        pass
 
 
 def main():
