@@ -5,8 +5,9 @@ import os
 def prawLogin():
     print("Logging in")
     r = praw.Reddit('Dank Bot 1.0 by /u/Styyxx')
-    password = checkSettings('password.txt')
-    r.login('AutoDankerator', password)
+    settings = checkSettings('settings.txt')
+    print(settings)
+    r.login('AutoDankerator', settings[2])
     return r
 
 
@@ -56,32 +57,34 @@ def usernameMentions():
 
 
 def checkSettings(filename):
+    settings = []
     try:
         if not os.path.exists(filename):
             print("Cannot read from the file if it does not exist")
             raise IOError
         with open(filename) as file:
             for line in file:
-                return line
+                line = str(line)
+                settings.append(line)
+                return settings
         try:
             file.close()
         except:
             print("Could not close file")
     except IOError:
         print("I/O error")
-    except ValueError:
-        print("Data set contained a value which could not be converted to a float")
     except:
         print("Unexpected error")
 
 
 def main():
     r = prawLogin()
+    settings = checkSettings('settings.txt')
     global subreddit
     subreddit = r.get_subreddit("dankmemes")
-    setFlairs()
-    check = checkSettings('settings.txt')
-    if check == 'yes':
+    if settings[0] == 'yes':
+        setFlairs()
+    if settings[1] == 'yes':
         usernameMentions()
 
 
