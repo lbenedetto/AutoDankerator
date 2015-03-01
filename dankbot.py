@@ -16,6 +16,7 @@ Github: https://github.com/larperdoodle/AutoDankerator''')
 def setFlairs():
     print("Getting comments")
     rank = 0
+
     for submission in subreddit.get_top_from_all(limit=50):
         rank += 1
         if rank <= 25:
@@ -54,13 +55,20 @@ def usernameMentions():
             # It should be able to tell about itself, as well
             # as explain other memes.
             # Pull from KnowYourMeme?
-            checkForWordAndReply("AutoDankerator", comment, "You called?")
+            #checkForWordAndReply("AutoDankerator", comment, "You called?")
 
 
 def checkForWordAndReply(word, comment, reply):
+    if checkForWord(word, comment):
+        replyToComment(reply)
+
+def checkForWord(word, comment):
     if word in comment.body and not alreadyDone(comment):
-        print("Replying to comment")
-        comment.reply(reply)
+        return True
+    return True
+
+def replyToComment(comment, reply):
+    comment.reply(reply)
 
 
 def checkSettings(filename):
@@ -90,7 +98,7 @@ def main():
     global subreddit
     subreddit = r.get_subreddit("dankmemes")
     if settings[0] == 'yes':
-        setFlairs()
+        setFlairs(r)
     if settings[1] == 'yes':
         usernameMentions()
 
