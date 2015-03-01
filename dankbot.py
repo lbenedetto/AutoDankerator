@@ -54,7 +54,9 @@ def usernameMentions():
             # Things that should happen if AutoDankerator is also in the comment
             if checkForWord("AutoDankerator", comment):
                 if checkForWord("what is", comment):
-                    checkForWordAndReply('love', comment, "baby don't hurt me")
+                    checkForWordAndReply('love', comment,
+                                         "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
+                    
             # Things that should happen all the time always
             checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
 
