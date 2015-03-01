@@ -34,7 +34,7 @@ def setFlairs():
 def getAboutText(url):
     page = urllib.request.urlopen(url).read()
     soup = BeautifulSoup(page)
-    data = soup.find('h2', {'': 'about'})
+    data = soup.find('h2', {'id': 'about'}).next_element.next_element.next_element
     print(data)
     #print(soup('div', id='about'))
     # for string in data:
