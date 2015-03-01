@@ -4,7 +4,9 @@ import os
 
 def prawLogin():
     print("Logging in")
-    r = praw.Reddit('Dank Bot 1.0 by /u/Styyxx')
+    r = praw.Reddit(''''Dank Bot v 1.0
+By: /u/Styyxx and /u/larperdoodle
+Github: https://github.com/larperdoodle/AutoDankerator''')
     settings = checkSettings('settings.txt')
     print(settings)
     r.login('AutoDankerator', settings[2])
@@ -47,7 +49,7 @@ def usernameMentions():
     for submission in subreddit.get_new(limit=25):
         flat_comments = praw.helpers.flatten_tree(submission.comments)
         already_done = set()
-        print("Iterating through comments")
+        print("Iterating through comments in", submission)
         for comment in flat_comments:
             if "AutoDankerator" in comment.body and comment.id not in already_done:
                 if not alreadyDone(comment):
@@ -64,7 +66,7 @@ def checkSettings(filename):
             raise IOError
         with open(filename) as file:
             for line in file:
-                line = str(line)
+                line = str(line.strip())
                 settings.append(line)
         try:
             file.close()
