@@ -66,15 +66,11 @@ def knowYourMeme(meme):
     dankURL = "http://knowyourmeme.com/memes/" + dankSearch
     info = convertFormatting(getAboutText(dankURL))
     if URLisValid(dankURL):
-        reply = ">"
-        reply += info
-        reply += "  \n  \n  "
-        reply += "["
-        reply += meme.strip()
-        reply += "]("
-        reply += dankURL
-        reply += ")  "
-        reply += "  \nI am a bot, this action was performed automatically."
+        reply = ''
+        List = [">", info, "  \n  \n  ", "[", meme.strip(), "](", dankURL, ")  ",
+                "  \nI am a bot, this action was performed automatically."]
+        for item in List:
+            reply += item
     else:
         reply = 'I do not know what "'
         reply += meme.strip()
