@@ -3,6 +3,7 @@ import os
 import urllib
 import re
 import string
+from BeautifulSoup4 import BeautifulSoup4
 
 
 def prawLogin():
@@ -29,6 +30,16 @@ def setFlairs():
             print("Removing flair from post #", rank)
             submission.set_flair(None)
 
+def getAboutText(htmlText):
+
+soup = BeautifulSoup("""<html><body>
+                        <div id="a" class="c1">
+                            We want to get this
+                        </div>
+                        <div id="b">
+                            We don't want to get this
+                        </div></body></html>""")
+print soup('div', id='a').text
 
 def alreadyDone(comment):
     done = False
