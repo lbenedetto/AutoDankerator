@@ -97,7 +97,7 @@ def usernameMentions():
                     else:
                         reply = knowYourMeme(meme)
                     print("Replying to comment", comment)
-                    comment.reply(reply)
+                    comment.reply(reply).distinguish()
             # Things that should happen all the time always
             checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
             checkForWordAndReply('well memed', comment, '[](/tip)')
@@ -123,7 +123,7 @@ def URLisValid(url):
 def checkForWordAndReply(word, comment, reply):
     if checkForWord(word, comment):
         print("Replying to comment", comment)
-        comment.reply(reply)
+        comment.reply(reply).distinguish()
     return True
 
 
