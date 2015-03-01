@@ -47,6 +47,7 @@ def main():
     settings = checkSettings('settings.txt')
     global subreddit
     subreddit = r.get_subreddit("dankmemes")
-    setFlairs()
+    if settings[0] == 'yes':
+        setFlairs()
 
 main()

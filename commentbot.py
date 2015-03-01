@@ -14,18 +14,6 @@ Github: https://github.com/larperdoodle/AutoDankerator''')
     r.login('AutoDankerator', settings[2])
     return r
 
-#This sets the flairs for the subreddit.
-#MOVED: to flairbot.py
-# def setFlairs():
-#     rank = 0
-#
-#     for submission in subreddit.get_top_from_all(limit=50):
-#         rank += 1
-#         if rank <= 25:
-#             submission.set_flair("#" + str(rank))
-#         else:
-#             submission.set_flair(None)
-
 # This function parses through the provided HTML and returns a clean string of the About data.
 def getAboutText(url):
     if URLisValid(url):
@@ -154,15 +142,13 @@ def checkSettings(filename):
     return settings
 
 #Main function.
-#TODO: Move flair shit to flairbot.py, this will be ran every hour. while the comment bot will run every like, 5 minutes.
 def main():
     r = prawLogin()
     settings = checkSettings('settings.txt')
     global subreddit
     subreddit = r.get_subreddit("dankmemes")
-    # if settings[0] == 'yes':
-    #     setFlairs()
-    usernameMentions()
+    if settings[1] == 'yes':
+        usernameMentions()
 
 
 main()
