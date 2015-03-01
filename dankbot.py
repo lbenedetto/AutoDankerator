@@ -1,11 +1,7 @@
 import praw
 import os
-import collections
 
-global subreddit
-subreddit = None
 
-# Login stuff
 def prawLogin():
     print("Logging in")
     r = praw.Reddit('Dank Bot 1.0 by /u/Styyxx')
@@ -14,7 +10,7 @@ def prawLogin():
     return r
 
 
-def setFlairs(r):
+def setFlairs():
     print("Getting comments")
     rank = 0
     for submission in subreddit.get_top_from_all(limit=50):
@@ -37,7 +33,7 @@ def alreadyDone(comment):
         pass
     if numofR != 0:
         for reply in comment.replies:
-            if reply.author != None and reply.author.name == 'AutoDankerator':
+            if reply.author is not None and reply.author.name == 'AutoDankerator':
                 done = True
                 continue
     if done:
@@ -46,7 +42,7 @@ def alreadyDone(comment):
         return False
 
 
-def usernameMentions(r):
+def usernameMentions():
     for submission in subreddit.get_new(limit=25):
         flat_comments = praw.helpers.flatten_tree(submission.comments)
         already_done = set()
@@ -64,10 +60,9 @@ def checkSettings(filename):
         if not os.path.exists(filename):
             print("Cannot read from the file if it does not exist")
             raise IOError
-        with open('numbers.txt') as file:
+        with open(filename) as file:
             for line in file:
-                if line == "True":
-                    return True
+                return line
         try:
             file.close()
         except:
@@ -82,11 +77,12 @@ def checkSettings(filename):
 
 def main():
     r = prawLogin()
+    global subreddit
     subreddit = r.get_subreddit("dankmemes")
-    setFlairs(r)
+    setFlairs()
     check = checkSettings('settings.txt')
-    if check is True:
-        usernameMentions(r)
+    if check == 'yes':
+        usernameMentions()
 
 
 main()
