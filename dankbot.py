@@ -96,7 +96,6 @@ def usernameMentions():
                 if checkForWord("what is", comment):
                     checkForWordAndReply('love', comment,
                                          "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
-                    print(comment)
                     dankSearch = comment.body.split("what is")
                     meme = dankSearch[1]
                     reply = knowYourMeme(meme)
@@ -121,7 +120,6 @@ def URLisValid(url):
 
 def checkForWordAndReply(word, comment, reply):
     if checkForWord(word, comment):
-        print("Replying to comment", comment)
         comment.reply(reply)
 
 
@@ -144,11 +142,8 @@ def checkSettings(filename):
             file.close()
         except:
             pass
-    except IOError:
-        pass
     except:
         pass
-    return settings
 
 
 def main():
