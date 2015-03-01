@@ -26,28 +26,15 @@ def setFlairs(r):
             submission.set_flair(None)
 
 
-def is_summon_chain(post, r):
-    if not post.is_root:
-        parent_comment_id = post.parent_id
-        parent_comment = r.get_info(thing_id=parent_comment_id)
-        if parent_comment.author != None and str(
-                parent_comment.author.name) == 'AutoDankerator':
-            return True
-        else:
-            return False
-    else:
-        return False
-
-
 def is_already_done(comment):
     done = False
-    numofr = 0
+    numofR = 0
     try:
-        repliesarray = comment.replies
-        numofr = len(list(repliesarray))
+        repliesArray = comment.replies
+        numofR = len(list(repliesArray))
     except:
         pass
-    if numofr != 0:
+    if numofR != 0:
         for reply in comment.replies:
             if reply.author != None and reply.author.name == 'AutoDankerator':
                 done = True
@@ -56,7 +43,6 @@ def is_already_done(comment):
         return True
     else:
         return False
-
 
 
 def usernameMentions(r):
