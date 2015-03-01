@@ -33,10 +33,8 @@ def usernameMentions(r):
         print("Iterating through comments")
         for comment in flat_comments:
             if "AutoDankerator" in comment.body and comment.id not in already_done:
-                commentReplies = r.get_submission(comment.permalink).comments[0]
-                for commentReply in commentReplies:
-                    if commentReply.author == "AutoDankerator":
-                        pass
+                for commentReply in comment.replies:
+                    
                 print("Replying to comment")
                 comment.reply('You called?')
                 already_done.add(comment.id)
