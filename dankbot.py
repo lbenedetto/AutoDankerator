@@ -9,7 +9,8 @@ subreddit = None
 def prawLogin():
     print("Logging in")
     r = praw.Reddit('Dank Bot 1.0 by /u/Styyxx')
-    r.login('AutoDankerator', 'dayynklmao')
+    password = checkSettings('password.txt')
+    r.login('AutoDankerator', password)
     return r
 
 
@@ -26,7 +27,7 @@ def setFlairs(r):
             submission.set_flair(None)
 
 
-def is_already_done(comment):
+def alreadyDone(comment):
     done = False
     numofR = 0
     try:
@@ -52,17 +53,15 @@ def usernameMentions(r):
         print("Iterating through comments")
         for comment in flat_comments:
             if "AutoDankerator" in comment.body and comment.id not in already_done:
-                for commentReply in comment.replies:
-                    if commentReply.author == "AutoDankerator":
-                        already_done.add()
-                print("Replying to comment")
-                comment.reply('You called?')
-                already_done.add(comment.id)
+                if not alreadyDone(comment):
+                    print("Replying to comment")
+                    comment.reply('You called?')
+                    already_done.add(comment.id)
 
 
-def checkSettings():
+def checkSettings(filename):
     try:
-        if not os.path.exists('settings.txt'):
+        if not os.path.exists(filename):
             print("Cannot read from the file if it does not exist")
             raise IOError
         with open('numbers.txt') as file:
@@ -85,7 +84,7 @@ def main():
     r = prawLogin()
     subreddit = r.get_subreddit("dankmemes")
     setFlairs(r)
-    check = checkSettings()
+    check = checkSettings('settings.txt')
     if check is True:
         usernameMentions(r)
 
