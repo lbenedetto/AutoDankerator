@@ -2,6 +2,7 @@ import praw
 import os
 import urllib
 import re
+import string
 
 
 def prawLogin():
@@ -60,14 +61,23 @@ def usernameMentions():
                     checkForWordAndReply('love', comment,
                                          "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
                 dankSearch = comment.split("what is")
-                dankURL = "http://knowyourmeme.com/memes/" + dankSearch[1].strip().replace(" ", "-")
+                dankSearch = clean(dankSearch[1])
+                dankURL = "http://knowyourmeme.com/memes/" + dankSearch
 
 
             # Things that should happen all the time always
             checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
 
+
+def clean(s):
+    s = s.strip()
+    s = re.sub('[%s]' % re.escape(string.punctuation), '', s)
+    s = s.replace(" ", "-")
+    return s
+
+
 def URLisValid(url):
-    ayy = urllib.urlopen(url)
+    ayy = urllib.requests.urlopen(url)
     lmao = ayy.getcode()
     if lmao is 404:
         return False
