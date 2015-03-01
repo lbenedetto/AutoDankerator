@@ -105,6 +105,11 @@ def checkForWord(word, comment):
         return True
     return False
 
+def getAboutText(url):
+    page = urllib.request.urlopen(url).read()
+    soup = BeautifulSoup(page)
+    data = soup.find('p', {'div': 'about'})
+    print(data)
 
 def checkSettings(filename):
     settings = []
