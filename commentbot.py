@@ -23,7 +23,7 @@ def getAboutText(url):
         data = soup.find('h2', {'id': 'about'}).next_element.next_element.next_element
         return str(data)
     else:
-        return "titty sprinkles" #TITTY SPRINKLES!
+        return "titty sprinkles"  # TITTY SPRINKLES!
 
 
 # This changes <strong> to reddits format for bold.
@@ -51,10 +51,9 @@ def alreadyDone(comment):
         pass
     if numofR != 0:
         for reply in comment.replies:
-            if reply.author is not None and reply.author.name == 'AutoDankerator':
-                if comment.author.name != "AutoDankerator":
-                    done = True
-                    continue
+            if reply.author is not None and reply.author.name == 'AutoDankerator' or comment.author.name != "AutoDankerator":
+                done = True
+                continue
     if done:
         return True
     else:
