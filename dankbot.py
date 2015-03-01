@@ -1,9 +1,9 @@
 import praw
 import os
-import urllib
+from urllib.request import urlopen
 import re
 import string
-from BeautifulSoup4 import BeautifulSoup4
+from bs4 import BeautifulSoup
 
 
 def prawLogin():
@@ -30,16 +30,10 @@ def setFlairs():
             print("Removing flair from post #", rank)
             submission.set_flair(None)
 
-def getAboutText(htmlText):
-
-soup = BeautifulSoup("""<html><body>
-                        <div id="a" class="c1">
-                            We want to get this
-                        </div>
-                        <div id="b">
-                            We don't want to get this
-                        </div></body></html>""")
-print soup('div', id='a').text
+def getAboutText(url):
+    page = urlopen(url).read()
+    soup = BeautifulSoup(page)
+    print(soup('div', id='about').text)
 
 def alreadyDone(comment):
     done = False
@@ -90,7 +84,7 @@ def clean(s):
 
 def URLisValid(url):
     try:
-        urllib.request.urlopen(url)
+        urlopen(url)
         return True
     except:
         return False
