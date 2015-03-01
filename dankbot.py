@@ -26,7 +26,7 @@ def setFlairs(r):
             submission.set_flair(None)
 
 
-def is_summon_chain(post,r):
+def is_summon_chain(post, r):
     if not post.is_root:
         parent_comment_id = post.parent_id
         parent_comment = r.get_info(thing_id=parent_comment_id)
@@ -39,27 +39,17 @@ def is_summon_chain(post,r):
         return False
 
 
-def comment_limit_reached(post):
-    global submissioncount
-    count_of_this = int(float(submissioncount[str(post.submission.id)]))
-    # Max number of times it can reply in a post
-    if count_of_this > 4:
-        return True
-    else:
-        return False
-
-
-def is_already_done(post):
+def is_already_done(comment):
     done = False
     numofr = 0
     try:
-        repliesarray = post.replies
+        repliesarray = comment.replies
         numofr = len(list(repliesarray))
     except:
         pass
     if numofr != 0:
-        for repl in post.replies:
-            if repl.author != None and repl.author.name == 'AutoDankerator':
+        for reply in comment.replies:
+            if reply.author != None and reply.author.name == 'AutoDankerator':
                 done = True
                 continue
     if done:
@@ -67,23 +57,6 @@ def is_already_done(post):
     else:
         return False
 
-
-def post_reply(reply, post):
-    global submissioncount
-    try:
-        a = post.reply(reply)
-        submissioncount[str(post.submission.id)] += 1
-        return True
-    except Exception as e:
-        warn("REPLY FAILED: %s @ %s" % (e, post.subreddit))
-        if str(e) == '403 Client Error: Forbidden':
-            print
-            '/r/' + post.subreddit + ' has banned me.'
-            save_changing_variables()
-        return False
-
-
-submissioncount = collections.Counter()
 
 
 def usernameMentions(r):
