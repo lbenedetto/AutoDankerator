@@ -83,8 +83,12 @@ def usernameMentions():
                     dankURL = "http://knowyourmeme.com/memes/" + dankSearch
                     info = convertFormatting(getAboutText(dankURL))
                     if URLisValid(dankURL):
-                        reply = str(info, "  ", "["+thing+"](dankURL)", "  ",
-                                    "I am a bot, this action was performed automatically.")
+                        reply = info
+                        reply += "  "
+                        reply += "["
+                        reply += thing
+                        reply += "](dankURL)  "
+                        reply += "I am a bot, this action was performed automatically."
                         comment.reply(reply)
             # Things that should happen all the time always
             checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
