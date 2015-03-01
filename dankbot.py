@@ -66,7 +66,6 @@ def checkSettings(filename):
             for line in file:
                 line = str(line)
                 settings.append(line)
-                return settings
         try:
             file.close()
         except:
@@ -75,6 +74,7 @@ def checkSettings(filename):
         print("I/O error")
     except:
         print("Unexpected error")
+    return settings
 
 
 def main():
