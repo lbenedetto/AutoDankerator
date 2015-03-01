@@ -35,16 +35,17 @@ def getAboutText(url):
     page = urllib.request.urlopen(url).read()
     soup = BeautifulSoup(page)
     data = soup.find('h2', {'id': 'about'}).next_element.next_element.next_element
-    return data
+    return str(data)
 
 
 def convertFormatting(t):
-    t = t.replace("<p>", "")
-    t = t.replace("</p>", "")
-    t = t.replace("<strong>", "**")
-    t = t.replace("</strong>", "**")
+    str(t)
+    t = re.sub('<p>', '', t)
+    t = re.sub('</p>', '', t)
+    t = re.sub('<strong>', '**', t)
+    t = re.sub('</strong>', '**', t)
     t = re.sub(r'<a href=".+">', '', t)
-    t = t.replace("</a>", "")
+    t = re.sub("</a>", "", t)
     return t
 
 
@@ -74,11 +75,17 @@ def knowYourMeme(meme):
     info = convertFormatting(getAboutText(dankURL))
     if URLisValid(dankURL):
         reply = info
-        reply += "  "
+        reply += "  \n"
         reply += "["
-        reply += meme
-        reply += "](dankURL)  "
-        reply += "I am a bot, this action was performed automatically."
+        reply += meme.strip()
+        reply += "]("
+        reply += dankURL
+        reply += ")  "
+        reply += "  \nI am a bot, this action was performed automatically."
+    else:
+        reply = 'I do not know what "'
+        reply += meme.strip()
+        reply += '" is.'
     return reply
 
 
