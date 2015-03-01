@@ -51,24 +51,24 @@ def usernameMentions():
         flat_comments = praw.helpers.flatten_tree(submission.comments)
         print("Iterating through comments in", submission)
         for comment in flat_comments:
-            # TODO Add things for Dankerator to say
-            # It should be able to tell about itself, as well
-            # as explain other memes.
-            # Pull from KnowYourMeme?
-            #checkForWordAndReply("AutoDankerator", comment, "You called?")
+            if checkForWord("AutoDankerator", comment):
+                pass
+                # TODO Add things for Dankerator to say
+                # It should be able to tell about itself, as well
+                # as explain other memes.
+                # Pull from KnowYourMeme?
+                #checkForWordAndReply("AutoDankerator", comment, "You called?")
 
 
 def checkForWordAndReply(word, comment, reply):
     if checkForWord(word, comment):
-        replyToComment(reply)
+        comment.reply(reply)
+
 
 def checkForWord(word, comment):
     if word in comment.body and not alreadyDone(comment):
         return True
-    return True
-
-def replyToComment(comment, reply):
-    comment.reply(reply)
+    return False
 
 
 def checkSettings(filename):
