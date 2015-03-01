@@ -90,17 +90,19 @@ def usernameMentions():
             # Things that should happen if AutoDankerator is also in the comment
             if checkForWord("AutoDankerator", comment):
                 if checkForWord("what is", comment):
-                    if checkForWordAndReply('love', comment,
-                                            "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)"):
-                        pass
+                    print("splitting")
+                    dankSearch = comment.body.split("what is")
+                    meme = dankSearch[1]
+                    print("generating reply")
+                    if meme.strip() == 'love':
+                        reply = "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)"
                     else:
-                        dankSearch = comment.body.split("what is")
-                        meme = dankSearch[1]
                         reply = knowYourMeme(meme)
-                        print("Replying to comment", comment)
-                        comment.reply(reply)
+                    print("Replying to comment", comment)
+                    comment.reply(reply)
             # Things that should happen all the time always
-            checkForWordAndReply('ayy lmao', comment, 'ayylmao')
+            checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
+            checkForWordAndReply('well memed', comment, '[](/tip)')
 
 
 # Removes punctuation from text.
@@ -128,7 +130,7 @@ def checkForWordAndReply(word, comment, reply):
 
 
 def checkForWord(word, comment):
-    if word in comment.body and not alreadyDone(comment):
+    if word.lower() in comment.body.lower() and not alreadyDone(comment):
         return True
     return False
 
