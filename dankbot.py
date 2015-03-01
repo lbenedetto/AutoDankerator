@@ -27,18 +27,7 @@ def setFlairs(r):
 
 
 def usernameMentions(r):
-    for submission in subreddit.get_new(limit=25):
-        flat_comments = praw.helpers.flatten_tree(submission.comments)
-        already_done = set()
-        print("Iterating through comments")
-        for comment in flat_comments:
-            if "AutoDankerator" in comment.body and comment.id not in already_done:
-                for commentReply in comment.replies:
-                    if commentReply.author == "AutoDankerator":
-                        already_done.add()
-                print("Replying to comment")
-                comment.reply('You called?')
-                already_done.add(comment.id)
+    pass
 
 
 def checkSettings():
