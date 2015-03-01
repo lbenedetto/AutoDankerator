@@ -73,25 +73,26 @@ def usernameMentions():
         print("Iterating through comments in", submission)
         for comment in flat_comments:
             # Things that should happen if AutoDankerator is also in the comment
-            if checkForWord("AutoDankerator", comment):
-                if checkForWord("what is", comment):
-                    checkForWordAndReply('love', comment,
-                                         "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
-                    dankSearch = comment.split("what is")
-                    thing = dankSearch[1]
-                    dankSearch = clean(dankSearch[1])
-                    dankURL = "http://knowyourmeme.com/memes/" + dankSearch
-                    info = convertFormatting(getAboutText(dankURL))
-                    if URLisValid(dankURL):
-                        reply = info
-                        reply += "  "
-                        reply += "["
-                        reply += thing
-                        reply += "](dankURL)  "
-                        reply += "I am a bot, this action was performed automatically."
-                        comment.reply(reply)
-            # Things that should happen all the time always
-            checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
+            if comment.author.name != "AutoDankerator":
+                if checkForWord("AutoDankerator", comment):
+                    if checkForWord("what is", comment):
+                        checkForWordAndReply('love', comment,
+                                             "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
+                        dankSearch = comment.split("what is")
+                        thing = dankSearch[1]
+                        dankSearch = clean(dankSearch[1])
+                        dankURL = "http://knowyourmeme.com/memes/" + dankSearch
+                        info = convertFormatting(getAboutText(dankURL))
+                        if URLisValid(dankURL):
+                            reply = info
+                            reply += "  "
+                            reply += "["
+                            reply += thing
+                            reply += "](dankURL)  "
+                            reply += "I am a bot, this action was performed automatically."
+                            comment.reply(reply)
+                # Things that should happen all the time always
+                checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
 
 
 def clean(s):
