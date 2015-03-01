@@ -90,13 +90,15 @@ def usernameMentions():
             # Things that should happen if AutoDankerator is also in the comment
             if checkForWord("AutoDankerator", comment):
                 if checkForWord("what is", comment):
-                    checkForWordAndReply('love', comment,
-                                         "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
-                    dankSearch = comment.body.split("what is")
-                    meme = dankSearch[1]
-                    reply = knowYourMeme(meme)
-                    print("Replying to comment", comment)
-                    comment.reply(reply)
+                    if checkForWordAndReply('love', comment,
+                                            "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)"):
+                        pass
+                    else:
+                        dankSearch = comment.body.split("what is")
+                        meme = dankSearch[1]
+                        reply = knowYourMeme(meme)
+                        print("Replying to comment", comment)
+                        comment.reply(reply)
             # Things that should happen all the time always
             checkForWordAndReply('ayy lmao', comment, 'ayylmao')
 
@@ -122,6 +124,7 @@ def checkForWordAndReply(word, comment, reply):
     if checkForWord(word, comment):
         print("Replying to comment", comment)
         comment.reply(reply)
+    return True
 
 
 def checkForWord(word, comment):
