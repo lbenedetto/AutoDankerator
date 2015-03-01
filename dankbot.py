@@ -65,11 +65,11 @@ def usernameMentions():
             checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
 
 def URLisValid(url):
-    ayy = urllib.urlopen(url)
-    lmao = ayy.getcode()
-    if lmao is 404:
+    try:
+        ayy = urllib.request.urlopen(url)
+        return True
+    except:
         return False
-    return True
 
 
 def checkForWordAndReply(word, comment, reply):
