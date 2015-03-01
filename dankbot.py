@@ -57,10 +57,12 @@ def usernameMentions():
                 if checkForWord("what is", comment):
                     checkForWordAndReply('love', comment,
                                          "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
+                dankSearch = comment.split("what is")
+                dankURL = "http://knowyourmeme.com/memes/" + dankSearch[1].strip().replace(" ", "-")
+
 
             # Things that should happen all the time always
             checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
-
 
 def URLisValid(url):
     ayy = urllib.urlopen(url)
