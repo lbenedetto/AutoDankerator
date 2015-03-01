@@ -77,16 +77,10 @@ def clean(s):
 
 
 def URLisValid(url):
-<<<<<<< HEAD
     try:
         ayy = urllib.request.urlopen(url)
         return True
     except:
-=======
-    ayy = urllib.requests.urlopen(url)
-    lmao = ayy.getcode()
-    if lmao is 404:
->>>>>>> origin/master
         return False
 
 
