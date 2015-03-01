@@ -3,7 +3,6 @@ import os
 from urllib.request import urlopen
 import re
 import string
-from bs4 import BeautifulSoup
 
 
 def prawLogin():
@@ -29,11 +28,6 @@ def setFlairs():
         else:
             print("Removing flair from post #", rank)
             submission.set_flair(None)
-
-def getAboutText(url):
-    page = urlopen(url).read()
-    soup = BeautifulSoup(page)
-    print(soup('div', id='about').text)
 
 def alreadyDone(comment):
     done = False
@@ -69,8 +63,6 @@ def usernameMentions():
                     dankURL = "http://knowyourmeme.com/memes/" + dankSearch
                     if URLisValid(dankURL):
                         comment.reply(dankURL, "\n", "I am a bot, this action was performed automatically.")
-
-
             # Things that should happen all the time always
             checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
 
