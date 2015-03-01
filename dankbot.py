@@ -8,7 +8,7 @@ def prawLogin():
 By: /u/Styyxx and /u/larperdoodle
 Github: https://github.com/larperdoodle/AutoDankerator''')
     settings = checkSettings('settings.txt')
-    print(settings)
+    print("Running with settings:", settings)
     r.login('AutoDankerator', settings[2])
     return r
 
@@ -51,17 +51,17 @@ def usernameMentions():
         flat_comments = praw.helpers.flatten_tree(submission.comments)
         print("Iterating through comments in", submission)
         for comment in flat_comments:
+            # Things that should happen if AutoDankerator is also in the comment
             if checkForWord("AutoDankerator", comment):
-                pass
-                # TODO Add things for Dankerator to say
-                # It should be able to tell about itself, as well
-                # as explain other memes.
-                # Pull from KnowYourMeme?
-                #checkForWordAndReply("AutoDankerator", comment, "You called?")
+                if checkForWord("what is", comment):
+                    checkForWordAndReply('love', comment, "baby don't hurt me")
+            # Things that should happen all the time always
+            checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
 
 
 def checkForWordAndReply(word, comment, reply):
     if checkForWord(word, comment):
+        print("Replying to comment", comment)
         comment.reply(reply)
 
 
@@ -98,7 +98,7 @@ def main():
     global subreddit
     subreddit = r.get_subreddit("dankmemes")
     if settings[0] == 'yes':
-        setFlairs(r)
+        setFlairs()
     if settings[1] == 'yes':
         usernameMentions()
 
