@@ -151,6 +151,7 @@ def checkSettings(filename):
     return settings
 
 #Main function.
+#TODO: Move flair shit to flairbot.py, this will be ran every hour. while the comment bot will run every like, 5 minutes.
 def main():
     r = prawLogin()
     settings = checkSettings('settings.txt')
