@@ -52,14 +52,14 @@ def alreadyDone(comment):
         pass
     if numofR != 0:
         for reply in comment.replies:
-            if reply.author is not None and reply.author.name == 'AutoDankerator' or comment.author.name != "AutoDankerator":
+            if reply.author is not None and reply.author.name == 'AutoDankerator':
                 done = True
                 continue
+    if comment.author.name == 'AutoDankerator':
+        done = True
     if done:
-        print("Passed validation")
         return True
     else:
-        print("Failed validation")
         return False
 
 
@@ -90,10 +90,8 @@ def usernameMentions():
             # Things that should happen if AutoDankerator is also in the comment
             if checkForWord("AutoDankerator", comment):
                 if checkForWord("what is", comment):
-                    print("splitting")
                     dankSearch = comment.body.split("what is")
                     meme = dankSearch[1]
-                    print("generating reply")
                     if meme.strip() == 'love':
                         reply = "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)"
                     else:
@@ -130,7 +128,7 @@ def checkForWordAndReply(word, comment, reply):
 
 
 def checkForWord(word, comment):
-    if word.lower() in comment.body.lower() and not alreadyDone(comment):
+    if word.lower() in comment.body.lower() and alreadyDone(comment) == False:
         return True
     return False
 
