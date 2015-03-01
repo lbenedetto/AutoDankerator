@@ -88,7 +88,6 @@ def usernameMentions():
                 if checkForWord("what is", comment):
                     checkForWordAndReply('love', comment,
                                          "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
-                    print(comment)
                     dankSearch = comment.body.split("what is")
                     meme = dankSearch[1]
                     reply = knowYourMeme(meme)
