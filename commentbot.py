@@ -7,6 +7,7 @@ from bs4 import BeautifulSoup
 
 
 def prawLogin():
+    print("Logging in")
     r = praw.Reddit('''Dank Bot v 1.46
 By: /u/Styyxx and /u/larperdoodle
 Github: https://github.com/larperdoodle/AutoDankerator''')
@@ -55,8 +56,10 @@ def alreadyDone(comment):
                 done = True
                 continue
     if done:
+        print("Passed validation")
         return True
     else:
+        print("Failed validation")
         return False
 
 
@@ -82,6 +85,7 @@ def knowYourMeme(meme):
 def usernameMentions():
     for submission in subreddit.get_new(limit=25):
         flat_comments = praw.helpers.flatten_tree(submission.comments)
+        print("Searching comments in", submission)
         for comment in flat_comments:
             # Things that should happen if AutoDankerator is also in the comment
             if checkForWord("AutoDankerator", comment):
@@ -91,8 +95,10 @@ def usernameMentions():
                     dankSearch = comment.body.split("what is")
                     meme = dankSearch[1]
                     reply = knowYourMeme(meme)
+                    print("Replying to comment", comment)
                     comment.reply(reply)
             # Things that should happen all the time always
+            checkForWordAndReply('ayy lmao', comment, 'ayylmao')
 
 
 # Removes punctuation from text.
