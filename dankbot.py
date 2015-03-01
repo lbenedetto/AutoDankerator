@@ -32,10 +32,13 @@ def setFlairs():
 
 
 def getAboutText(url):
-    page = urllib.request.urlopen(url).read()
-    soup = BeautifulSoup(page)
-    data = soup.find('h2', {'id': 'about'}).next_element.next_element.next_element
-    return str(data)
+    if URLisValid(url):
+        page = urllib.request.urlopen(url).read()
+        soup = BeautifulSoup(page)
+        data = soup.find('h2', {'id': 'about'}).next_element.next_element.next_element
+        return str(data)
+    else:
+        return "titty sprinkles"
 
 
 def convertFormatting(t):
