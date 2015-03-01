@@ -54,10 +54,10 @@ def usernameMentions():
             # It should be able to tell about itself, as well
             # as explain other memes.
             # Pull from KnowYourMeme?
-            checkCommentForWordAndReply("AutoDankerator", comment, "You called?")
+            checkForWordAndReply("AutoDankerator", comment, "You called?")
 
 
-def checkCommentForWordAndReply(word, comment, reply):
+def checkForWordAndReply(word, comment, reply):
     if word in comment.body and not alreadyDone(comment):
         print("Replying to comment")
         comment.reply(reply)
