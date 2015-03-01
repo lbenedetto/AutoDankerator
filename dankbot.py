@@ -1,4 +1,5 @@
-import praw, os
+import praw
+import os
 
 
 global subreddit
