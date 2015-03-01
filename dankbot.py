@@ -48,14 +48,11 @@ def alreadyDone(comment):
 def usernameMentions():
     for submission in subreddit.get_new(limit=25):
         flat_comments = praw.helpers.flatten_tree(submission.comments)
-        already_done = set()
         print("Iterating through comments in", submission)
         for comment in flat_comments:
-            if "AutoDankerator" in comment.body and comment.id not in already_done:
-                if not alreadyDone(comment):
-                    print("Replying to comment")
-                    comment.reply('You called?')
-                    already_done.add(comment.id)
+            if "AutoDankerator" in comment.body and not alreadyDone(comment):
+                print("Replying to comment")
+                comment.reply('You called?')
 
 
 def checkSettings(filename):
