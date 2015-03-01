@@ -63,6 +63,8 @@ def usernameMentions():
                 dankSearch = comment.split("what is")
                 dankSearch = clean(dankSearch[1])
                 dankURL = "http://knowyourmeme.com/memes/" + dankSearch
+                if URLisValid(dankURL):
+                    comment.reply(dankURL)
 
 
             # Things that should happen all the time always
