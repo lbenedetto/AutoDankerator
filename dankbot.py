@@ -90,7 +90,7 @@ def usernameMentions():
                             reply += thing
                             reply += "](dankURL)  "
                             reply += "I am a bot, this action was performed automatically."
-                            comment.reply(reply)
+                            comment.reply(reply, distinguish=True)
                 # Things that should happen all the time always
                 checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
 
@@ -113,7 +113,7 @@ def URLisValid(url):
 def checkForWordAndReply(word, comment, reply):
     if checkForWord(word, comment):
         print("Replying to comment", comment)
-        comment.reply(reply)
+        comment.reply(reply, distinguish=True)
 
 
 def checkForWord(word, comment):
