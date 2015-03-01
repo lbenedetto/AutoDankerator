@@ -66,8 +66,9 @@ def knowYourMeme(meme):
     dankURL = "http://knowyourmeme.com/memes/" + dankSearch
     info = convertFormatting(getAboutText(dankURL))
     if URLisValid(dankURL):
-        reply = info
-        reply += "  \n"
+        reply = ">"
+        reply += info
+        reply += "  \n  \n  "
         reply += "["
         reply += meme.strip()
         reply += "]("
