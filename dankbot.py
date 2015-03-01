@@ -4,10 +4,7 @@ import urllib
 import re
 import string
 from bs4 import BeautifulSoup
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/master
 
 def prawLogin():
     print("Logging in")
@@ -81,20 +78,6 @@ def usernameMentions():
             # Things that should happen all the time always
             checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
 
-
-def getAboutText(url):
-    Newlines = re.compile(r'[\r\n]\s+')
-    # given a url, get page content
-    data = urlopen(url).read()
-    # parse as html structured document
-    bs = BeautifulSoup.BeautifulSoup(data, convertEntities=BeautifulSoup.BeautifulSoup.HTML_ENTITIES)
-    # kill javascript content
-    for s in bs.findAll('script'):
-        s.replaceWith('')
-    # find body and extract text
-    txt = bs.find('about').getText('\n')
-    # remove multiple linebreaks and whitespace
-    return Newlines.sub('\n', txt)
 
 def clean(s):
     s = s.strip()
