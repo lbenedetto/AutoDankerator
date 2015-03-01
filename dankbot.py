@@ -59,12 +59,27 @@ def alreadyDone(comment):
     if numofR != 0:
         for reply in comment.replies:
             if reply.author is not None and reply.author.name == 'AutoDankerator':
-                done = True
-                continue
+                if comment.author.name != "AutoDankerator":
+                    done = True
+                    continue
     if done:
         return True
     else:
         return False
+
+
+def knowYourMeme(meme):
+    dankSearch = clean(meme)
+    dankURL = "http://knowyourmeme.com/memes/" + dankSearch
+    info = convertFormatting(getAboutText(dankURL))
+    if URLisValid(dankURL):
+        reply = info
+        reply += "  "
+        reply += "["
+        reply += meme
+        reply += "](dankURL)  "
+        reply += "I am a bot, this action was performed automatically."
+    return reply
 
 
 def usernameMentions():
@@ -73,26 +88,16 @@ def usernameMentions():
         print("Iterating through comments in", submission)
         for comment in flat_comments:
             # Things that should happen if AutoDankerator is also in the comment
-            if comment.author.name != "AutoDankerator":
-                if checkForWord("AutoDankerator", comment):
-                    if checkForWord("what is", comment):
-                        checkForWordAndReply('love', comment,
-                                             "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
-                        dankSearch = comment.split("what is")
-                        thing = dankSearch[1]
-                        dankSearch = clean(dankSearch[1])
-                        dankURL = "http://knowyourmeme.com/memes/" + dankSearch
-                        info = convertFormatting(getAboutText(dankURL))
-                        if URLisValid(dankURL):
-                            reply = info
-                            reply += "  "
-                            reply += "["
-                            reply += thing
-                            reply += "](dankURL)  "
-                            reply += "I am a bot, this action was performed automatically."
-                            comment.reply(reply, distinguish=True)
-                # Things that should happen all the time always
-                checkForWordAndReply('ayy lmao', comment, 'ayy lmao')
+            if checkForWord("AutoDankerator", comment):
+                if checkForWord("what is", comment):
+                    checkForWordAndReply('love', comment,
+                                         "[baby don't hurt me](https://www.youtube.com/watch?v=xhrBDcQq2DM)")
+                    print(comment)
+                    dankSearch = comment.body.split("what is")
+                    meme = dankSearch[1]
+                    reply = knowYourMeme(meme)
+                    comment.reply(reply)
+            # Things that should happen all the time always
 
 
 def clean(s):
@@ -113,7 +118,7 @@ def URLisValid(url):
 def checkForWordAndReply(word, comment, reply):
     if checkForWord(word, comment):
         print("Replying to comment", comment)
-        comment.reply(reply, distinguish=True)
+        comment.reply(reply)
 
 
 def checkForWord(word, comment):
