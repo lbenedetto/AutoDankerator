@@ -62,6 +62,7 @@ def alreadyDone(comment):
     else:
         return False
 
+# I really want to add the entire bee movie script to this file. Don't look at me that way. I know you are.
 
 # Creates a reply to, well, reply with.
 def knowYourMeme(meme):
