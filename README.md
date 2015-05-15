@@ -1,2 +1,2 @@
 # AutoDankerator
-Dank Bot for /r/dankmemes
+Dank Bot for `/r/dankmemes`
