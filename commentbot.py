@@ -10,13 +10,13 @@ def prawLogin():
     print("Logging in")
     r = praw.Reddit('''Dank Bot v 1.46
 By: /u/Styyxx and /u/larperdoodle
-Github: https://github.com/larperdoodle/AutoDankerator''')
+GitHub: https://github.com/larperdoodle/AutoDankerator''')
     settings = checkSettings('settings.txt')
     r.login('AutoDankerator', settings[2])
     return r
 
 
-# This function parses through the provided HTML and returns a clean string of the About data.
+# This function parses through the provided HTML and returns a clean string of the About data
 def getAboutText(url):
     if URLisValid(url):
         page = urllib.request.urlopen(url).read()
@@ -24,10 +24,10 @@ def getAboutText(url):
         data = soup.find('h2', {'id': 'about'}).next_element.next_element.next_element
         return str(data)
     else:
-        return "titty sprinkles"  # TITTY SPRINKLES!
+        return "le tips fedora"  # This is what you get, Lars
 
 
-# This changes <strong> to reddits format for bold.
+# This changes <strong> to reddits format for bold
 def convertFormatting(t):
     str(t)
     t = re.sub('<p>', '', t)
@@ -41,7 +41,7 @@ def convertFormatting(t):
     return t
 
 
-# Checks if the bot has already replied to a comment.
+# Checks if the bot has already replied to a comment
 def alreadyDone(comment):
     done = False
     numofR = 0
@@ -62,9 +62,7 @@ def alreadyDone(comment):
     else:
         return False
 
-# I really want to add the entire bee movie script to this file. Don't look at me that way. I know you are.
-
-# Creates a reply to, well, reply with.
+# Creates a reply
 def knowYourMeme(meme):
     dankSearch = clean(meme)
     dankURL = "http://knowyourmeme.com/memes/" + dankSearch
@@ -104,7 +102,7 @@ def usernameMentions():
             checkForWordAndReply('well memed', comment, '[](/tip)')
 
 
-# Removes punctuation from text.
+# Removes punctuation from text
 def clean(s):
     s = s.strip()
     s = re.sub('[%s]' % re.escape(string.punctuation), '', s)
@@ -112,7 +110,7 @@ def clean(s):
     return s
 
 
-# Is a URL valid, and it doesn't 404, right?
+# Is URL valid and not a 404?
 def URLisValid(url):
     try:
         urllib.request.urlopen(url)
@@ -154,7 +152,7 @@ def checkSettings(filename):
     return settings
 
 
-# Main function.
+# Main function
 def main():
     r = prawLogin()
     settings = checkSettings('settings.txt')
